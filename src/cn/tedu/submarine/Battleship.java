@@ -3,24 +3,17 @@ package cn.tedu.submarine;
 /**
  * 战舰
  */
-public class Battleship {
-    int width;  //宽
-    int height;  //高
-    int x;  //x坐标
-    int y;  //y坐标
-    int speed;  //移动速度
-    int life;  //命
+public class Battleship extends SeaObject {
+    private int life;
 
-    Battleship(){
-        width=66;
-        height=26;
-        x=270;
-        y=124;
-        speed=20;
-        life=2;
+
+    public Battleship() {
+        super(9, 12, 10, 10, 3, 1);
     }
 
-    void move() {
-        System.out.println("战舰在移动~");
+    @Override
+    public void move() {
+        System.out.println("战舰x向右移动");
     }
+
 }

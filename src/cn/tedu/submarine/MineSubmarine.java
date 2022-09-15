@@ -1,30 +1,25 @@
 package cn.tedu.submarine;
 
+import javax.swing.*;
 import java.util.Random;
 
 /**
  * 水雷潜艇
  */
-public class MineSubmarine {
-    int width;  //宽
-    int height;  //高
-    int x;  //x坐标
-    int y;  //y坐标
-    int speed;  //移动速度
-    int life;  //命
+public class MineSubmarine extends SeaObject {
 
-    MineSubmarine(){
-        width=63;
-        height=19;
-        x=-width;
-        Random rand = new Random();
-        y=rand.nextInt(479-height-150+1)+150;
-        speed=rand.nextInt(3)+1;
-        life=1;
+    public MineSubmarine() {
+        super(63, 19);
     }
 
-
-    void move() {
+    @Override
+    public void move() {
         System.out.println("水雷潜艇x向右移动");
     }
+
+    @Override
+    public ImageIcon getImage() {
+        return Images.minesubm;
+    }
+
 }

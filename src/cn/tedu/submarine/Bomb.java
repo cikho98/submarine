@@ -1,26 +1,24 @@
 package cn.tedu.submarine;
 
+import javax.swing.*;
+
 /**
  * 炸弹
  */
-public class Bomb {
-    int width;  //宽
-    int height;  //高
-    int x;  //x坐标
-    int y;  //y坐标
-    int speed;  //移动速度
-    int harm;  //伤害
+public class Bomb extends SeaObject {
 
-    Bomb(int x , int y,int harm){
-        width=9;
-        height=12;
-        this.x=x;
-        this.y=y;
-        this.harm=harm;
-        speed=3;
+    public Bomb(int width, int height, int x, int y, int speed, int harm) {
+        super(width, height, x, y, speed, harm);
     }
 
-    void move() {
-        System.out.println("炸弹y向下移动");
+    @Override
+    public void move() {
+        System.out.println("水雷y向下移动");
     }
+
+    @Override
+    public ImageIcon getImage() {
+        return Images.bomb;
+    }
+
 }

@@ -1,30 +1,27 @@
 package cn.tedu.submarine;
 
+import javax.swing.*;
 import java.util.Random;
 
 /**
  * 侦查潜艇
  */
-public class ObserveSubmarine {
-    int width;  //宽
-    int height;  //高
-    int x;  //x坐标
-    int y;  //y坐标
-    int speed;  //移动速度
-    int life;  //命
+public class ObserveSubmarine extends SeaObject {
 
-    ObserveSubmarine(){
-        width=63;
-        height=19;
-        x=-width;
-        Random rand = new Random();
-        y=rand.nextInt(479-height-150+1)+150;
-        speed=rand.nextInt(3)+1;
-        life=1;
+
+    public ObserveSubmarine() {
+        super(63, 19);
+    }
+
+    @Override
+    public void move() {
+        System.out.println("侦查潜艇x向右移动");
     }
 
 
-    void move() {
-        System.out.println("侦察潜艇x向右移动");
+    @Override
+    public ImageIcon getImage() {
+        return Images.obsersubm;
     }
+
 }
