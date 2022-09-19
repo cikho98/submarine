@@ -9,12 +9,12 @@ import java.util.Random;
 public class TorpedoSubmarine extends SeaObject {
 
     public TorpedoSubmarine() {
-        super(64, 20);
+        super(100, 20);
     }
 
     @Override
     public void move() {
-        System.out.println("鱼雷潜艇x向右移动");
+        x+=speed;
     }
 
     @Override

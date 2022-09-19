@@ -9,17 +9,22 @@ import java.util.Random;
 public class MineSubmarine extends SeaObject {
 
     public MineSubmarine() {
-        super(63, 19);
+        super(100, 19);
+        harm=1;
     }
 
     @Override
     public void move() {
-        System.out.println("水雷潜艇x向右移动");
+        x+=speed;
     }
 
     @Override
     public ImageIcon getImage() {
         return Images.minesubm;
+    }
+
+    public Mine shootMine(){
+        return  new Mine(x+width,y-11,harm);
     }
 
 }

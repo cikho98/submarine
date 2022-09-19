@@ -8,13 +8,13 @@ import javax.swing.*;
 public class Mine extends SeaObject {
 
 
-    Mine(int width, int height, int x, int y, int speed, int harm) {
-        super(width, height, x, y, speed, harm);
+    Mine( int x, int y, int harm) {
+        super( x, y, harm);
     }
 
     @Override
     public void move() {
-        System.out.println("水雷y向下移动");
+        y-=speed;
     }
 
     @Override
