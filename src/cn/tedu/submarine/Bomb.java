@@ -7,8 +7,8 @@ import javax.swing.*;
  */
 public class Bomb extends SeaObject {
 
-    public Bomb(int width, int height, int x, int y, int speed, int harm) {
-        super(width, height, x, y, speed, harm);
+    public Bomb(int x, int y) {
+        super(9, 12, x, y, 1, 1);
     }
 
     @Override

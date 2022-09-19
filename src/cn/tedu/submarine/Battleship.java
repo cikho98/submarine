@@ -18,9 +18,21 @@ public class Battleship extends SeaObject {
         System.out.println("战舰x向右移动");
     }
 
+    public void moveLeft(){
+        x-=speed;
+    }
+
+    public void moveRight(){
+        x+=speed;
+    }
+
     @Override
     public ImageIcon getImage() {
         return Images.battleship;
+    }
+
+    public Bomb shootBomb(){
+        return new Bomb(x,y);
     }
 
 }

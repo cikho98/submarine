@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * @author tarena
@@ -21,36 +23,40 @@ public class World extends JPanel {
     private Mine[] mines = {};
     private Bomb[] bombs = {};
 
-    private SeaObject nextSubmarine(){
+    private SeaObject nextSubmarine() {
         Random ran = new Random();
         int type = ran.nextInt(20);
-        if (type<10){
+        if (type < 10) {
             return new ObserveSubmarine();
-        }else if(type<15){
+        } else if (type < 15) {
             return new TorpedoSubmarine();
-        }else {
+        } else {
             return new MineSubmarine();
         }
-    };
+    }
 
-    private int subEnterIndex =0;
-    private void submarineEnterAction(){
+    private int subEnterIndex = 0;
+
+    private void submarineEnterAction() {
         subEnterIndex++;
-        if (subEnterIndex%40==0){
+        if (subEnterIndex % 40 == 0) {
             SeaObject obj = nextSubmarine();
-            submarines= Arrays.copyOf(submarines,submarines.length+1);
-            submarines[submarines.length-1]=obj;
+            submarines = Arrays.copyOf(submarines, submarines.length + 1);
+            submarines[submarines.length - 1] = obj;
         }
     }
 
-    private int mineEnterIndex=0;
-    private void mineEnterAction(){
+    private int mineEnterIndex = 0;
+
+    private void mineEnterAction() {
         mineEnterIndex++;
-        if (mineEnterIndex%100==0){
+        if (mineEnterIndex % 100 == 0) {
+
 
         }
     }
-    private void moveAction(){
+
+    private void moveAction() {
         for (int i = 0; i < submarines.length; i++) {
             submarines[i].move();
         }
@@ -63,6 +69,27 @@ public class World extends JPanel {
     }
 
     private void action() {
+        //监听器
+        KeyAdapter k = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    Bomb obj = ship.shootBomb();
+                    bombs = Arrays.copyOf(bombs, bombs.length + 1);
+                    bombs[bombs.length - 1] = obj;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    ship.moveLeft();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    ship.moveRight();
+                }
+            }
+        };
+        this.addKeyListener(k);
+        requestFocus();
+        //定时器·1
         Timer timer = new Timer();
         int interval = 10;
         timer.schedule(new TimerTask() {
