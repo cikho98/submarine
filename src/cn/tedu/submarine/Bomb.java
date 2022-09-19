@@ -21,4 +21,8 @@ public class Bomb extends SeaObject {
         return Images.bomb;
     }
 
+    @Override
+    public boolean isOutOfBounds() {
+        return y>=World.HEIGHT;
+    }
 }

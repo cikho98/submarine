@@ -68,6 +68,27 @@ public class World extends JPanel {
         }
     }
 
+    private void outOfBoundAction(){
+        for (int i = 0; i < submarines.length; i++) {
+            if (submarines[i].isOutOfBounds()){
+                submarines[i]=submarines[submarines.length-1];
+                submarines=Arrays.copyOf(submarines,submarines.length-1);
+            }
+        }
+        for (int i = 0; i < mines.length; i++) {
+            if (mines[i].isOutOfBounds()){
+                mines[i]=mines[mines.length-1];
+                mines=Arrays.copyOf(mines,mines.length-1);
+            }
+        }
+        for (int i = 0; i < bombs.length; i++) {
+            if (bombs[i].isOutOfBounds()){
+                bombs[i]=bombs[bombs.length-1];
+                bombs=Arrays.copyOf(bombs,bombs.length-1);
+            }
+        }
+    }
+
     private void action() {
         //监听器
         KeyAdapter k = new KeyAdapter() {
@@ -98,6 +119,7 @@ public class World extends JPanel {
                 submarineEnterAction();
                 mineEnterAction();
                 moveAction();
+                outOfBoundAction();
                 repaint();
             }
         }, interval, interval);

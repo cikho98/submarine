@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * 鱼雷潜艇
  */
-public class TorpedoSubmarine extends SeaObject {
+public class TorpedoSubmarine extends SeaObject implements EnemyScore {
 
     public TorpedoSubmarine() {
         super(100, 20);
@@ -22,4 +22,8 @@ public class TorpedoSubmarine extends SeaObject {
         return Images.torpesubm;
     }
 
+    @Override
+    public int getScore() {
+        return 40;
+    }
 }

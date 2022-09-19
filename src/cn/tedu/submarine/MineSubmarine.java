@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * 水雷潜艇
  */
-public class MineSubmarine extends SeaObject {
+public class MineSubmarine extends SeaObject implements  EnemyScore,EnemyLife{
 
     public MineSubmarine() {
         super(100, 19);
@@ -27,4 +27,13 @@ public class MineSubmarine extends SeaObject {
         return  new Mine(x+width,y-11,harm);
     }
 
+    @Override
+    public int getScore() {
+        return 30;
+    }
+
+    @Override
+    public int getLife() {
+        return 1;
+    }
 }

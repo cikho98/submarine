@@ -53,6 +53,12 @@ public abstract class SeaObject {
         return state == DEAD;
     }
 
+    public boolean isOutOfBounds(){
+        return x>=World.WIDTH;
+    }
+
+
+
     public void plantImage(Graphics g){
         if (isLive()){
             getImage().paintIcon(null,g,x,y);
