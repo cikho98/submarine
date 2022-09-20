@@ -32,7 +32,15 @@ public class Battleship extends SeaObject {
     }
 
     public Bomb shootBomb(){
-        return new Bomb(x,y);
+        return new Bomb(x,y+11);
+    }
+
+    public void addLife(int num){
+        life+=num;
+    }
+
+    public int getLife(){
+        return life;
     }
 
 }

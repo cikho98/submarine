@@ -25,17 +25,13 @@ public abstract class SeaObject {
         y = rand.nextInt(World.HEIGHT - height - 150 + 1) + 150;
         speed = rand.nextInt(3) + 1;
     }
-    SeaObject(int x, int y, int harm) {
-        this.x = x;
-        this.y = y;
-        this.harm = harm;
-    }
+
 
     SeaObject(int width, int height, int x, int y, int speed, int harm) {
         this.width = width;
         this.height = height;
         this.x = x;
-        this.y = y-height;
+        this.y = y - height;
         this.speed = speed;
         this.harm = harm;
     }
@@ -53,15 +49,29 @@ public abstract class SeaObject {
         return state == DEAD;
     }
 
-    public boolean isOutOfBounds(){
-        return x>=World.WIDTH;
+    public boolean isOutOfBounds() {
+        return x >= World.WIDTH;
     }
 
+    public boolean isHit(SeaObject other) {
+        int x1 = x - other.width;
+        int x2 = x + width;
+        int y1 = y - other.height;
+        int y2 = y + height;
 
+        int x = other.x;
+        int y = other.y;
 
-    public void plantImage(Graphics g){
-        if (isLive()){
-            getImage().paintIcon(null,g,x,y);
+        return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+    }
+
+    public void goDead(){
+        state=DEAD;
+    }
+
+    public void plantImage(Graphics g) {
+        if (isLive()) {
+            getImage().paintIcon(null, g, x, y);
         }
     }
 

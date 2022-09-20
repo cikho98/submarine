@@ -24,7 +24,7 @@ public class MineSubmarine extends SeaObject implements  EnemyScore,EnemyLife{
     }
 
     public Mine shootMine(){
-        return  new Mine(x+width,y-11,harm);
+        return  new Mine(x+width,y-11);
     }
 
     @Override

@@ -3,10 +3,7 @@ package cn.tedu.submarine;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -17,6 +14,7 @@ public class World extends JPanel {
 
     public static final int WIDTH = 641;
     public static final int HEIGHT = 479;
+    public static int SCORE=0;
 
     private Battleship ship = new Battleship();
     private SeaObject[] submarines = {};
@@ -51,7 +49,14 @@ public class World extends JPanel {
     private void mineEnterAction() {
         mineEnterIndex++;
         if (mineEnterIndex % 100 == 0) {
-
+            for (SeaObject seo : submarines) {
+                if (seo instanceof MineSubmarine) {
+                    MineSubmarine minesubmarine = (MineSubmarine) seo;
+                    Mine mine = minesubmarine.shootMine();
+                    mines = Arrays.copyOf(mines, mines.length + 1);
+                    mines[mines.length - 1] = mine;
+                }
+            }
 
         }
     }
@@ -68,26 +73,27 @@ public class World extends JPanel {
         }
     }
 
-    private void outOfBoundAction(){
+    private void outOfBoundAction() {
         for (int i = 0; i < submarines.length; i++) {
-            if (submarines[i].isOutOfBounds()){
-                submarines[i]=submarines[submarines.length-1];
-                submarines=Arrays.copyOf(submarines,submarines.length-1);
+            if (submarines[i].isOutOfBounds() || submarines[i].isDead()) {
+                submarines[i] = submarines[submarines.length - 1];
+                submarines = Arrays.copyOf(submarines, submarines.length - 1);
             }
         }
         for (int i = 0; i < mines.length; i++) {
-            if (mines[i].isOutOfBounds()){
-                mines[i]=mines[mines.length-1];
-                mines=Arrays.copyOf(mines,mines.length-1);
+            if (mines[i].isOutOfBounds() || mines[i].isDead()) {
+                mines[i] = mines[mines.length - 1];
+                mines = Arrays.copyOf(mines, mines.length - 1);
             }
         }
         for (int i = 0; i < bombs.length; i++) {
-            if (bombs[i].isOutOfBounds()){
-                bombs[i]=bombs[bombs.length-1];
-                bombs=Arrays.copyOf(bombs,bombs.length-1);
+            if (bombs[i].isOutOfBounds() || bombs[i].isDead()) {
+                bombs[i] = bombs[bombs.length - 1];
+                bombs = Arrays.copyOf(bombs, bombs.length - 1);
             }
         }
     }
+
 
     private void action() {
         //监听器
@@ -119,10 +125,47 @@ public class World extends JPanel {
                 submarineEnterAction();
                 mineEnterAction();
                 moveAction();
+                bombBangAction();
+                mineBangAction();
                 outOfBoundAction();
                 repaint();
             }
         }, interval, interval);
+    }
+
+    private void bombBangAction() {
+        for (int i = 0; i < bombs.length; i++) {
+            Bomb b = bombs[i];
+            for (int j = 0; j < submarines.length; j++) {
+                if(b.isLive()&& submarines[j].isLive() && submarines[j].isHit(b)){
+                    b.goDead();
+                    submarines[j].goDead();
+                    if (submarines[j] instanceof EnemyScore){
+                        EnemyScore es = (EnemyScore) submarines[j];
+                        SCORE+=es.getScore();
+                        System.out.println(SCORE);
+                    }
+                    if(submarines[j] instanceof EnemyLife){
+                        EnemyLife el = (EnemyLife) submarines[j];
+                        ship.addLife(el.getLife());
+                        System.out.println("生命值："+ship.getLife());
+                    }
+                }
+            }
+        }
+    }
+
+    private void mineBangAction(){
+        for (int i = 0; i < mines.length; i++) {
+            Mine mine=mines[i];
+            if(ship.isHit(mine)){
+                mine.goDead();
+                ship.addLife(-1);
+                if (ship.getLife()<=0){
+                    System.out.println("game over");
+                }
+            }
+        }
     }
 
     @Override

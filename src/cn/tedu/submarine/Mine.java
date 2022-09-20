@@ -8,13 +8,13 @@ import javax.swing.*;
 public class Mine extends SeaObject {
 
 
-    public Mine( int x, int y, int harm) {
-        super( x, y, harm);
+    public Mine(int x, int y) {
+        super(11, 11, x, y, 1, 1);
     }
 
     @Override
     public void move() {
-        y-=speed;
+        y -= speed;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class Mine extends SeaObject {
 
     @Override
     public boolean isOutOfBounds() {
-        return y<=150-height;
+        return y <= 150 - height;
     }
 }
