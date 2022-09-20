@@ -122,12 +122,10 @@ public class World extends JPanel {
                     if (submarines[j] instanceof EnemyScore) {
                         EnemyScore es = (EnemyScore) submarines[j];
                         SCORE += es.getScore();
-                        System.out.println(SCORE);
                     }
                     if (submarines[j] instanceof EnemyLife) {
                         EnemyLife el = (EnemyLife) submarines[j];
                         ship.addLife(el.getLife());
-                        System.out.println("生命值：" + ship.getLife());
                     }
                 }
             }
