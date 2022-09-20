@@ -18,12 +18,12 @@ public class Battleship extends SeaObject {
         System.out.println("战舰x向右移动");
     }
 
-    public void moveLeft(){
-        x-=speed;
+    public void moveLeft() {
+        x -= speed;
     }
 
-    public void moveRight(){
-        x+=speed;
+    public void moveRight() {
+        x += speed;
     }
 
     @Override
@@ -31,15 +31,15 @@ public class Battleship extends SeaObject {
         return Images.battleship;
     }
 
-    public Bomb shootBomb(){
-        return new Bomb(x,y+11);
+    public Bomb shootBomb() {
+        return new Bomb(x, y + 11);
     }
 
-    public void addLife(int num){
-        life+=num;
+    public void addLife(int num) {
+        life += num;
     }
 
-    public int getLife(){
+    public int getLife() {
         return life;
     }
 
