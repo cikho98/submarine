@@ -4,17 +4,21 @@ import javax.swing.ImageIcon;
 import java.util.Random;
 import java.awt.Graphics;
 
-public abstract class SeaObject {
+/**
+ * @author tarena
+ */
+public abstract class
+SeaObject {
     public static final int LIVE = 0;
     public static final int DEAD = 1;
     protected int state = LIVE;
 
 
-    protected int width;  //宽
-    protected int height;  //高
-    protected int x;  //x坐标
-    protected int y;  //y坐标
-    protected int speed;  //移动速度0.....
+    protected int width;
+    protected int height;
+    protected int x;
+    protected int y;
+    protected int speed;
     protected int harm;
 
     SeaObject(int width, int height) {
@@ -26,7 +30,6 @@ public abstract class SeaObject {
         speed = rand.nextInt(3) + 1;
     }
 
-
     SeaObject(int width, int height, int x, int y, int speed, int harm) {
         this.width = width;
         this.height = height;
@@ -35,7 +38,6 @@ public abstract class SeaObject {
         this.speed = speed;
         this.harm = harm;
     }
-
 
     public abstract void move();
 
@@ -65,8 +67,8 @@ public abstract class SeaObject {
         return x >= x1 && x <= x2 && y >= y1 && y <= y2;
     }
 
-    public void goDead(){
-        state=DEAD;
+    public void goDead() {
+        state = DEAD;
     }
 
     public void plantImage(Graphics g) {

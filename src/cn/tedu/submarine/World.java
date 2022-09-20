@@ -14,12 +14,30 @@ public class World extends JPanel {
 
     public static final int WIDTH = 641;
     public static final int HEIGHT = 479;
-    public static int SCORE=0;
+    private static int SCORE = 0;
 
     private Battleship ship = new Battleship();
     private SeaObject[] submarines = {};
     private Mine[] mines = {};
     private Bomb[] bombs = {};
+
+    @Override
+    public void paint(Graphics g) {
+        Images.sea.paintIcon(null, g, 0, 0);
+        ship.plantImage(g);
+        for (SeaObject sub : submarines) {
+            sub.plantImage(g);
+        }
+        for (Mine mine : mines) {
+            mine.plantImage(g);
+        }
+
+        for (Bomb bomb : bombs) {
+            bomb.plantImage(g);
+        }
+        g.drawString("SCORE: " + SCORE, 200, 50);
+        g.drawString("LIFE: " + ship.getLife(), 400, 50);
+    }
 
     private SeaObject nextSubmarine() {
         Random ran = new Random();
@@ -94,6 +112,40 @@ public class World extends JPanel {
         }
     }
 
+    private void bombBangAction() {
+        for (int i = 0; i < bombs.length; i++) {
+            Bomb b = bombs[i];
+            for (int j = 0; j < submarines.length; j++) {
+                if (b.isLive() && submarines[j].isLive() && submarines[j].isHit(b)) {
+                    b.goDead();
+                    submarines[j].goDead();
+                    if (submarines[j] instanceof EnemyScore) {
+                        EnemyScore es = (EnemyScore) submarines[j];
+                        SCORE += es.getScore();
+                        System.out.println(SCORE);
+                    }
+                    if (submarines[j] instanceof EnemyLife) {
+                        EnemyLife el = (EnemyLife) submarines[j];
+                        ship.addLife(el.getLife());
+                        System.out.println("生命值：" + ship.getLife());
+                    }
+                }
+            }
+        }
+    }
+
+    private void mineBangAction() {
+        for (int i = 0; i < mines.length; i++) {
+            Mine mine = mines[i];
+            if (ship.isHit(mine)) {
+                mine.goDead();
+                ship.addLife(-1);
+                if (ship.getLife() <= 0) {
+                    System.out.println("game over");
+                }
+            }
+        }
+    }
 
     private void action() {
         //监听器
@@ -131,57 +183,6 @@ public class World extends JPanel {
                 repaint();
             }
         }, interval, interval);
-    }
-
-    private void bombBangAction() {
-        for (int i = 0; i < bombs.length; i++) {
-            Bomb b = bombs[i];
-            for (int j = 0; j < submarines.length; j++) {
-                if(b.isLive()&& submarines[j].isLive() && submarines[j].isHit(b)){
-                    b.goDead();
-                    submarines[j].goDead();
-                    if (submarines[j] instanceof EnemyScore){
-                        EnemyScore es = (EnemyScore) submarines[j];
-                        SCORE+=es.getScore();
-                        System.out.println(SCORE);
-                    }
-                    if(submarines[j] instanceof EnemyLife){
-                        EnemyLife el = (EnemyLife) submarines[j];
-                        ship.addLife(el.getLife());
-                        System.out.println("生命值："+ship.getLife());
-                    }
-                }
-            }
-        }
-    }
-
-    private void mineBangAction(){
-        for (int i = 0; i < mines.length; i++) {
-            Mine mine=mines[i];
-            if(ship.isHit(mine)){
-                mine.goDead();
-                ship.addLife(-1);
-                if (ship.getLife()<=0){
-                    System.out.println("game over");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        Images.sea.paintIcon(null, g, 0, 0);
-        ship.plantImage(g);
-        for (SeaObject sub : submarines) {
-            sub.plantImage(g);
-        }
-        for (Mine mine : mines) {
-            mine.plantImage(g);
-        }
-
-        for (Bomb bomb : bombs) {
-            bomb.plantImage(g);
-        }
     }
 
     public static void main(String[] args) {
