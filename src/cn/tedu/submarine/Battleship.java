@@ -10,7 +10,8 @@ public class Battleship extends SeaObject {
 
 
     public Battleship() {
-        super(66, 26, 150, 150, 3, 1);
+        super(66, 26, 150, 150, 4, 1);
+        life=1;
     }
 
     @Override

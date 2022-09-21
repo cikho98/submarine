@@ -16,6 +16,12 @@ public class World extends JPanel {
     public static final int HEIGHT = 479;
     private static int SCORE = 0;
 
+    public static final int RUNNING = 0;
+    public static final int PAUSE = 1;
+    public static final int GAME_OVER = 2;
+
+    private int state = RUNNING;
+
     private Battleship ship = new Battleship();
     private SeaObject[] submarines = {};
     private Mine[] mines = {};
@@ -37,6 +43,9 @@ public class World extends JPanel {
         }
         g.drawString("SCORE: " + SCORE, 200, 50);
         g.drawString("LIFE: " + ship.getLife(), 400, 50);
+        if (state == GAME_OVER) {
+            Images.gameover.paintIcon(null, g, 0, 0);
+        }
     }
 
     private SeaObject nextSubmarine() {
@@ -138,9 +147,6 @@ public class World extends JPanel {
             if (ship.isHit(mine)) {
                 mine.goDead();
                 ship.subtractLife();
-                if (ship.getLife() <= 0) {
-                    System.out.println("game over");
-                }
             }
         }
     }
@@ -150,37 +156,63 @@ public class World extends JPanel {
         KeyAdapter k = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                if (state == RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_P) {
+                        state = PAUSE;
+                    }
+                } else if (state == PAUSE) {
+                    if (e.getKeyCode() == KeyEvent.VK_P) {
+                        state = RUNNING;
+                    }
+                } else if (state == GAME_OVER) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        state = RUNNING;
+                    }
+                }
 
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    Bomb obj = ship.shootBomb();
-                    bombs = Arrays.copyOf(bombs, bombs.length + 1);
-                    bombs[bombs.length - 1] = obj;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    ship.moveLeft();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    ship.moveRight();
+                if (state == RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        Bomb obj = ship.shootBomb();
+                        bombs = Arrays.copyOf(bombs, bombs.length + 1);
+                        bombs[bombs.length - 1] = obj;
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        ship.moveLeft();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        ship.moveRight();
+                    }
                 }
             }
         };
         this.addKeyListener(k);
         requestFocus();
+
+
         //定时器·1
         Timer timer = new Timer();
         int interval = 10;
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                submarineEnterAction();
-                mineEnterAction();
-                moveAction();
-                bombBangAction();
-                mineBangAction();
-                outOfBoundAction();
-                repaint();
+                if (state == RUNNING) {
+                    submarineEnterAction();
+                    mineEnterAction();
+                    moveAction();
+                    bombBangAction();
+                    mineBangAction();
+                    outOfBoundAction();
+                    repaint();
+                    checkGameoverAction();
+                }
             }
         }, interval, interval);
+    }
+
+    private void checkGameoverAction() {
+        if (ship.getLife() <= 0) {
+            state = GAME_OVER;
+        }
     }
 
     public static void main(String[] args) {
