@@ -137,7 +137,7 @@ public class World extends JPanel {
             Mine mine = mines[i];
             if (ship.isHit(mine)) {
                 mine.goDead();
-                ship.addLife(-1);
+                ship.subtractLife();
                 if (ship.getLife() <= 0) {
                     System.out.println("game over");
                 }

@@ -43,4 +43,8 @@ public class Battleship extends SeaObject {
         return life;
     }
 
+    public void subtractLife(){
+        life--;
+    }
+
 }
