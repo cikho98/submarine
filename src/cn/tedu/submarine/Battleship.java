@@ -20,11 +20,11 @@ public class Battleship extends SeaObject {
     }
 
     public void moveLeft() {
-        x -= speed;
+        setX(getX()-getSpeed());
     }
 
     public void moveRight() {
-        x += speed;
+        setX(getX()+getSpeed());
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Battleship extends SeaObject {
     }
 
     public Bomb shootBomb() {
-        return new Bomb(x, y + 11);
+        return new Bomb(getX(), getY() + 11);
     }
 
     public void addLife(int num) {

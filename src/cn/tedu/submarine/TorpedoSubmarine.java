@@ -14,7 +14,7 @@ public class TorpedoSubmarine extends SeaObject implements EnemyScore {
 
     @Override
     public void move() {
-        x+=speed;
+        setX(getX()+getSpeed());
     }
 
     @Override

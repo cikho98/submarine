@@ -10,12 +10,12 @@ public class MineSubmarine extends SeaObject implements  EnemyScore,EnemyLife{
 
     public MineSubmarine() {
         super(100, 19);
-        harm=1;
+        setHarm(1);
     }
 
     @Override
     public void move() {
-        x+=speed;
+        setX(getX()+getSpeed());
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MineSubmarine extends SeaObject implements  EnemyScore,EnemyLife{
     }
 
     public Mine shootMine(){
-        return  new Mine(x+width,y-11);
+        return  new Mine(getX()+getWidth(),getY()-11);
     }
 
     @Override

@@ -11,15 +11,65 @@ public abstract class
 SeaObject {
     public static final int LIVE = 0;
     public static final int DEAD = 1;
-    protected int state = LIVE;
+    private int state = LIVE;
 
 
-    protected int width;
-    protected int height;
-    protected int x;
-    protected int y;
-    protected int speed;
-    protected int harm;
+    private int width;
+    private int height;
+
+
+    private int x;
+    private int y;
+    private int speed;
+    private int harm;
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setHarm(int harm) {
+        this.harm = harm;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 
     SeaObject(int width, int height) {
         this.width = width;

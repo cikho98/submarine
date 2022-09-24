@@ -14,7 +14,7 @@ public class Mine extends SeaObject {
 
     @Override
     public void move() {
-        y -= speed;
+        setY(getY() - getSpeed());
     }
 
     @Override
@@ -24,6 +24,6 @@ public class Mine extends SeaObject {
 
     @Override
     public boolean isOutOfBounds() {
-        return y <= 150 - height;
+        return getY() <= 150 - getHeight();
     }
 }

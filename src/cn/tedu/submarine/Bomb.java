@@ -13,7 +13,7 @@ public class Bomb extends SeaObject {
 
     @Override
     public void move() {
-        y+=speed;
+        setY(getY()+getSpeed());
     }
 
     @Override
@@ -23,6 +23,6 @@ public class Bomb extends SeaObject {
 
     @Override
     public boolean isOutOfBounds() {
-        return y>=World.HEIGHT;
+        return getY()>=World.HEIGHT;
     }
 }

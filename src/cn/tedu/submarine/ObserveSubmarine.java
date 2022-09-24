@@ -15,7 +15,7 @@ public class ObserveSubmarine extends SeaObject  implements EnemyScore{
 
     @Override
     public void move() {
-        x+=speed;
+        setX(getX()+getSpeed());
     }
 
 

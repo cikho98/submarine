@@ -164,10 +164,6 @@ public class World extends JPanel {
                     if (e.getKeyCode() == KeyEvent.VK_P) {
                         state = RUNNING;
                     }
-                } else if (state == GAME_OVER) {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        state = RUNNING;
-                    }
                 }
 
                 if (state == RUNNING) {
